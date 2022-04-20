@@ -1,8 +1,8 @@
-#!C:\ProgramData\Anaconda3\python.exe
+#!C:\Python310\python.exe
 
 #pokrenit apache u xampp-u (control panel xampp)
 #u C\xampp\cgi-bin dodat folder
-#dodat python path
+#dodat python path (doma je #!C:\Python310\python.exe)
 #u browseru otvorit http://localhost/cgi-bin/HTML_forme_CGI_skripte/test2.py (port 80 default)
 
 import cgi

@@ -1,4 +1,4 @@
-#!C:\ProgramData\Anaconda3\python.exe
+#!C:\Python310\python.exe
 import cgi
 import os
 
