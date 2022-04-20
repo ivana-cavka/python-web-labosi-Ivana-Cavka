@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="./skripta.py" method="post">
+       <select name="brand">
+           <option value="volovo">volovo</option>
+           <option  value="mercedes">mercedes</option>
+           <option  value="VW">VW</option>
+       </select> 
+
+       <textarea message="message" row="3" cols="4">
+       </textarea><br>
+
+       Firstname: <input type="text" name="firstname" value="firstname"><br>
+       Lastname: <input type="text" name="lastname" value="lastname"><br>
+       Password: <input type="password" name="password" ><br>
+
+       <input type="radio" name="student_tatus" value="full_time" checked>full_time
+       <input type="radio" name="student_tatus" value="part_time">part_time<br>
+
+       <input type="checkbox" name="zavrsni_upisan" value="da" checked>DA<br>
+       <input type="checkbox" name="praksa_upisana" value="da">DA<br>
+
+       <input type="hidden" name="countryName" value="Croatia"><br>
+
+       <input type="submit"><br>
+      
+    </form>
+</body>
+</html>
