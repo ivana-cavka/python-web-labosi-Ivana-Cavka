@@ -1,0 +1,12 @@
+Izraditi Django aplikaciju za prodaju kino karata. Omogućiti registraciju i prijavu posjetitelja (usera). Iz
+admin sučelja se nekog usera može postaviti za zaposlenika (is-staff). Izraditi modele Projekcija (ime
+filma, vrijeme filma i kapacitet dvorane-broj sjedala) i Karta (broj sjedala) i postaviti ih u odgovarajuće
+relacije (Karta ima dvije relacije-na korisnika i na projekciju).
+Izraditi stranice na kojima:
+Prijavljeni korisnik može vidjeti sve projekcije i kupiti karte za iste. Prijavljeni korisnik može vidjeti sve
+svoje karte i kojim projekcijama pripadaju. Zaposlenik može vidjeti broj prodanih karata za pojedinu
+projekciju. Zaposlenik također može vidjeti sve korisnike koji su kupili kartu za određenu projekciju.
+Zaposlenik takodjer moze kreirati, editirati i izbrisati projekcije.
+Kupovinu karata realizirati koristeci Django forme (forms.ModelForm). Sve modele je potrebno
+registrirati u admin sucelje. Admin sucelje je dozvoljeno koristiti samo za CRUD nad korisnicima. Admin
+sucelje nije dozvoljeno koristiti za CRUD nad projekcijama i kartama.

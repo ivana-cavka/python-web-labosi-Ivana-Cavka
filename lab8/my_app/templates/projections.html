@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    {% if request.user.is_staff %}
+        <a href="{% url 'add-projection' %}">DODAJ NOVU PROJEKCIJU</a>
+        <a href="{% url 'logout' %}">LOGOUT</a>
+    {% elif request.user.is_authenticated %}
+        <a href="{% url 'tickets-by-user'%}">MOJE KARTE</a>
+        <a href="{% url 'logout' %}">LOGOUT</a>
+    {% else %}
+        <a href="{% url 'login' %}">LOGIN</a>
+    {% endif %}
+    <table>
+        <tr>
+            <th style="width:200px">Naziv filma:</th>
+            <th style="width:100px">Vrijeme:</th>
+            <th style="width:100px">Preostalo sjedala:</th>
+            {% if request.user.is_staff %}
+                <th style="width:100px">Kupljeno karata:</th>
+                <th style="width:100px"></th>
+                <th style="width:100px"></th>
+                <th style="width:100px"></th>
+            {% elif request.user.is_authenticated %}
+                <th style="width:100px"></th>
+            {% endif %}
+        </tr> 
+        {% for projection in projection_data %}
+        <tr>
+            <td>{{projection.movie_name}}</td>
+            <td>{{projection.time}}</td>
+            {% for key, value in seats_left.items %} 
+                {% if key == projection.id %}
+                    <td>{{value}}</td>
+                {% endif %}
+            {% endfor %}
+            {% if request.user.is_staff %}
+            {% for key, value in seats_taken.items %} 
+                {% if key == projection.id %}
+                    <td>{{value}}</td>
+                {% endif %}
+            {% endfor %}
+                <td><a href="{% url 'tickets-by-projection' projection.id %}">PREGLEDAJ KARTE</a></td>
+                <td><a href="{% url 'update-projection' projection.id %}">IZMIJENI</a></td>
+                <td><a href="{% url 'delete-projection' projection.id %}">IZBRIŠI</a></td>
+            {% elif request.user.is_authenticated %}
+                <td><a href="{% url 'receipt' projection.id %}">KUPI KARTU</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+</body>
+</html>

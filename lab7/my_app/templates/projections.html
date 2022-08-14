@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <table>
+        <tr>
+            <th style="width:200px">Naziv filma:</th>
+            <th style="width:100px">Vrijeme:</th>
+            <th style="width:100px">Preostalo sjedala:</th>
+            <th></th>
+        </tr> 
+        {% for projection in projection_data %}
+        <tr>
+            <td>{{projection.movie_name}}</td>
+            <td>{{projection.time}}</td>
+                {% for key, value in seat_data.items %} 
+                    {% if key == projection.id %}
+                        <td>{{value}}</td>
+                    {% endif %}
+                {% endfor %}
+            <td><a href="{% url 'receipt' projection.id %}">KUPI KARTU</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+</body>
+</html>

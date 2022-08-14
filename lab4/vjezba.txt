@@ -1,0 +1,7 @@
+Izmijeniti vjezbu3 na sljedeci nacin. Napraviti Python skriptu za odabir predmeta. Primjer rada skripte je ilustriran na idućim slikama. 
+
+Svaka od stranica (godina) zadržava status predmeta (radio button ostaje označen prema zadnjem odabiru). Da bi se to omogućilo, pri promijeni stranice, podatke o predmetima spremiti iz post parametara u sesiju u bazi podataka i čitati iz sesije u bazi podataka varijable pri generiranju HTML-a. Skripta predmeti.py sadrži popis predmeta po godinama i druge potrebne podatke i potrebno ju je uključiti sa import. Sve funkcionalnosti moraju raditi i nakon dodavanja/uklanjanja predmeta iz popisa. Kôd podijeliti u funkcije za:
+⦁	Ispis jednog predmeta sa odabirom
+⦁	Ispis predmeta godine
+⦁	Ispis upisnog lista
+⦁	Spremanje odabira iz post parametere u sesiju u bazi podataka

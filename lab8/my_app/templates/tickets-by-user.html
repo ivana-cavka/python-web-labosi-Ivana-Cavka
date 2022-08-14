@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    Korisnik: {{user_data.username}}<br>
+    Email: {{user_data.email}}
+    <br><br>
+    <table>
+        <tr>
+            <th style="width:100px">Sjedalo: </th>
+            <th style="width:100px">Projekcija: </th>
+        </tr>
+        {% for ticket in ticket_data %}
+            <tr>
+                <td>{{ticket.seat_number}}</td>
+                <td>{{ticket.movie_projection.movie_name}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+</body>
+</html>

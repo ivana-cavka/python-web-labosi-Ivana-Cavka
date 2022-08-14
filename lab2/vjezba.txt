@@ -1,0 +1,4 @@
+Napraviti iduće 3 HTML stranice koje predstavljaju nekakav wizard za registraciju:
+  
+Drop-down lista ima četiri smjera, za e-mail i sva druga polja koristiti prikladan tip inputa. 
+Pretvoriti HTML stranice u Python skripte tako da se omogući prosljeđivanje unesenih podataka pomoću skrivenih polja. Postaviti ih na XAMPP server u cgi-bin folder. Dodati i zadnju stranicu (Python skriptu) koja će ispisati sve unesene podatke i imati link za povratak na početak wizarda:
