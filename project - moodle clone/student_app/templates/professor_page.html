@@ -1,0 +1,77 @@
+<!-- Profesor ima stranicu(e) za CRUD njegovih dokumenta. Profesor takodjer ima stranicu(e) za dijeljenje uploadanih dokumenta sa studentima. 
+    Profesor treba biti u mogucnosti ponistiti podjelu koju je prethodno napravio sa odredjenim studentom. 
+    Profesor treba biti u mogucnosti podijeliti dokument sa vise studenata u jednoj akciji (ne student po student). 
+    Pregled dokumenata je sortiran po datumu kreacije. Sve stranice koje prikazuju dokumente ili korisnike trebaju biti paginirane. 
+
+    #Uloga profesor:
+#- autentikacija
+#- kreiranje dokumenta
+#- dijeljenje dokumenta
+#- brisanje dokumenta
+#- ponistavanje „dijeljenja” dokumenta
+#- pregled kreiranih dokumenata (sortirano prema datumu kreiranja)
+-->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>moodle clone</title>
+    </head>
+    <body style="font-family:Georgia, 'Times New Roman', Times, serif; font-size: 20 px;">
+
+    {% block profesor %}
+    <div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <menu type="toolbar" style="float:right;"> 
+            <button class="btn btn-primary"><a href="/logout" style="padding: 10px;text-decoration: none;">LOGOUT</a></button>
+        </menu>
+        <h3>Profesor</h3>
+        <div class="user_info" >
+            <p>Ime i prezime: <span style="color:firebrick">{{ profesor_data.first_name }}  {{ profesor_data.last_name }} </span></p>
+            <p>Email: <span style="color:firebrick">{{ profesor_data.email }}</span></p>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block documents %}
+    <div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <button class="btn btn-primary" style="float:right;"><a  href="/new_document" style="padding: 10px;text-decoration: none;">DODAJ DOKUMENT</a></button>
+        <h3>Dokumenti</h3>
+        <table>
+        <tr style="padding: 5px;">
+            <th style="padding: 5px;width:max-content">Naslov</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for document in document_data %}
+        <tr>
+            <td style="padding: 5px;">{{ document.title }} </td>
+            <td style="padding: 5px;"><a href="{{ document.path }}" title="OTVORI DOKUMENT" style="text-decoration: none;">&#128195;</a></td> 
+            <td style="padding: 5px;"><a href="/update_document/{{ document.id }}" title="UREDI DOKUMENT" style="text-decoration: none;">&#128221;</a></td>
+            <td style="padding: 5px;"><a href="/delete_document/{{ document.id }}" title="IZBRIŠI DOKUMENT" style="text-decoration: none;">&#10060;</a></td>
+            <td style="padding: 5px;"><a href="/share/{{ document.id }}" title="UREDI DIJELJENJE" style="text-decoration: none;">&#128228;</a></td>
+            <td style="padding: 5px;"><a href="/stop_sharing/{{ document.id }}" title="ZAUSTAVI DIJELJENJE" style="text-decoration: none;">&#128229;</a></td>
+        </tr>
+        {% endfor %}
+        </table>
+
+        <div style="float:center;padding: 10px;">
+            {% if document_data.has_previous %}
+            <a href="?page=1" style="text-decoration: none;">&#9198;</a>
+            <a href="?page={{ document_data.previous_page_number }}" style="text-decoration: none;">&#9194;</a>
+            {% endif %}
+            Stranica {{ document_data.number }} of {{ document_data.paginator.num_pages }}
+            {% if document_data.has_next %}
+            <a href="?page={{ document_data.next_page_number }}" style="text-decoration: none;">&#9193;</a>
+            <a href="?page={{ document_data.paginator.num_pages }}" style="text-decoration: none;">&#9197;</a>
+            {% endif %}
+            </div>
+    </div>
+    {% endblock %}
+
+</body>
+</html>

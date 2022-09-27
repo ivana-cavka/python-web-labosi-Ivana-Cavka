@@ -1,0 +1,44 @@
+<!-- Obratiti pažnju na sigurnost aplikacije (kriptiranje lozinki i slicno). 
+    Aplikacija ce imati stranicu za prijavu i odjavu kojoj mogu pristupiti svi korisnici. -->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>moodle clone</title>
+    </head>
+    <body style="font-family:Georgia, 'Times New Roman', Times, serif; font-size: 20 px;">
+
+    {% block login %}
+
+    <div id="login" style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+        {% csrf_token %}
+        {% if message %}
+        <h4>{{ message }}</h4>
+        {% endif %}
+        <div class="control-group" style="margin-top: 5px;margin-bottom: 5px;">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="username"  placeholder="username" style="margin-top: 5px;margin-bottom: 5px;">
+            </div>
+        </div>
+        <div class="control-group" style="margin-top: 5px;margin-bottom: 5px;">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" name="password" id="password" placeholder="password" style="margin-top: 5px;margin-bottom: 5px;">
+            </div>
+        </div>
+        <div class="control-group" style="margin-left: 20px">
+            <div class="controls">
+                <button type="submit" class="btn" style="padding: 10px;margin-top: 5px;margin-bottom: 5px;">LOGIN</button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+
+    {% endblock %}
+</body>
+</html>

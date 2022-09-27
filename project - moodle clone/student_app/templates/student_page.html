@@ -1,0 +1,96 @@
+<!-- Student ima stranicu sa listom s njim podijeljenih dokumenata. Student treba moci pristupiti podjeljenim dokumentima. 
+    Listu dokumenata, student moze sortirati po datumu kreacije ili imenu dokumenta. Student moze i filtrirati listu po profesoru. 
+    Sve stranice koje prikazuju dokumente ili korisnike trebaju biti paginirane.
+
+    #Uloga student:
+#- autentikacija
+#- pregled liste dokumenata koje su podjeljene sa studentom, poredanih po datumu kada su kreirani
+#(obavezna paginacija)
+#- sortiranje dokumenata prema sljedecim kriterijima:
+#1. abecedno prema imenu
+#2. prema datumu kreiranja
+#- filtriranje dokumenata prema imenu profesora (imena profesora mogu biti u dropdown-u)
+-->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>moodle clone</title>
+    </head>
+    <body style="font-family:Georgia, 'Times New Roman', Times, serif; font-size: 20 px;">
+
+    {% block student %}
+    <div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <menu type="toolbar" style="float:right;"> 
+            <button class="btn btn-primary"><a href="/logout" style="padding: 10px;text-decoration: none;">LOGOUT</a></button>
+        </menu>
+        <h3>Student</h3>
+        <div class="user_info" >
+            <p>Ime i prezime: <span style="font-size: 15px;color:firebrick">{{ student_data.first_name }}  {{ student_data.last_name }} </span></p>
+            <p>Email: <span style="font-size: 15px;color:firebrick">{{ student_data.email }}</span></p>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block documents %}
+    <div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <h3>Dokumenti</h3>
+        <div style="float:center;">
+            <span style="margin: 10px;">
+                <form action="" class = "sort__form" method="GET">
+                        <select class= "sort__select" name="select_sorting">
+                            <option disabled selected> Sortiraj po </option>
+                            <option value="v1">Naslovu: abecedno</option>
+                            <option value="v2">Datumu kreiranja: od zadnjeg</option>
+                            <option value="v3">Datumu kreiranja: od prvog</option>
+                        </select>
+                    <input type="submit" value="SORTIRAJ">
+            </span>
+            <span style="margin: 10px;">
+                    <select class= "filter__select" name="select_filtering">
+                        <option disabled selected> Filtriraj po profesoru</option>
+                        {% for prof in profesor_data %}
+                        <option value="{{ prof.username }}">{{ prof.first_name }} {{ prof.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="FILTRIRAJ">
+                </form>
+            </span>
+        </div>
+
+        <table>
+        <tr>
+            <th style="padding: 5px;width:max-content;">Naslov</th>
+            <th style="padding: 5px;width:max-content;">Kreator</th>
+            <th style="padding: 5px;width:max-content;">Datum kreiranja</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for document in document_data %}
+        <tr>
+            <td style="padding: 5px;">{{ document.title }} </td>
+            <td style="padding: 5px;">{{ document.creator.first_name }} {{ document.creator.last_name }} </td>
+            <td style="padding: 5px;">{{ document.created }} </td>
+            <td style="padding: 5px;"><a href="{{ document.path }}" title="OTVORI" style="text-decoration: none;">&#128195;</a></td> 
+        </tr>
+        {% endfor %}
+        </table>
+
+        <div style="float:center;padding: 10px;">
+        {% if document_data.has_previous %}
+        <a href="?page=1" style="text-decoration: none;">&#9198;</a>
+        <a href="?page={{ document_data.previous_page_number }}" style="text-decoration: none;">&#9194;</a>
+        {% endif %}
+        Stranica {{ document_data.number }} of {{ document_data.paginator.num_pages }}
+        {% if document_data.has_next %}
+        <a href="?page={{ document_data.next_page_number }}" style="text-decoration: none;">&#9193;</a>
+        <a href="?page={{ document_data.paginator.num_pages }}" style="text-decoration: none;">&#9197;</a>
+        {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+    
+</body>
+</html>

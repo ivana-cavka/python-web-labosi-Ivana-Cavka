@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharing docs</title>
+</head>
+<body style="font-family:Georgia, 'Times New Roman', Times, serif; font-size: 20 px;">
+
+{% block document %}
+<div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+<menu type="toolbar" style="float:right;"> 
+    <button class="btn btn-primary"><a href="/logout" style="padding: 10px;text-decoration: none;">LOGOUT</a></button>
+    <button class="btn btn-primary" style="float:right;"><a  href="/profesor/{{profesor_data}}/" style="padding: 10px;text-decoration: none;">ODUSTANI</a></button>
+</menu>
+<h3>Dokument</h3>
+<p>Naslov: <span style="color:firebrick">{{ document_data.title }}</span></p>
+<p>Datum kreiranja: <span style="color:firebrick">{{ document_data.created }}</span></p>
+</div>
+{% endblock %}
+
+{% block sharing %}
+<div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+    <form class="form-horizontal" name="ShareForm" action="/share/{{document_data.id}}/" method="post">
+    {% csrf_token %}
+    <h4>Označite ili odznačite studente s kojima želite dijeliti dokument</h4>
+    <div class="control-group" style="margin-top: 5px;margin-bottom: 5px;">
+        <div name="students" id="students" >
+            {% for student in students_data %}
+                {% if student in students_already_shared %}
+                    <input type="checkbox" name="student_checkbox" value="{{student.username}}" checked>{{student.first_name}} {{student.last_name}}<br>
+                {% else %}
+                    <input type="checkbox" name="student_checkbox" value="{{student.username}}">{{student.first_name}} {{student.last_name}}<br>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="control-group" style="margin-left: 20px">
+        <div class="controls">
+            <button type="submit" class="btn" style="padding: 10px;margin-top: 5px;margin-bottom: 5px;">SPREMI PROMJENE</button>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
+
+</body>
+</html>

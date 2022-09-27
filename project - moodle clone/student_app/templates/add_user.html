@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+</head>
+<body>
+    <div id="login" style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <menu type="toolbar" style="float:right;"> 
+            <button class="btn btn-primary" style="float:right;"><a  href="/administrator/{{admin_data}}/" style="padding: 10px;text-decoration: none;">ODUSTANI</a></button>
+        </menu>
+        {% block insert_user %}
+        <form method="post">
+        <table>
+        {{form.as_table}}
+        </table>
+        <br>
+        <input type="submit" value="DODAJ KORISNIKA">
+        {% csrf_token %}
+    </form>
+    {% endblock %}
+    </div>
+</body>
+</html>

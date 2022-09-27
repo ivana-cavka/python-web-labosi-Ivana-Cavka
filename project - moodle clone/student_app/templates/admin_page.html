@@ -1,0 +1,88 @@
+<!-- Admin ima stranice za CRUD korisnika. Korisnici su sortirani po ulozi. 
+    Sve stranice koje prikazuju dokumente ili korisnike trebaju biti paginirane. 
+
+    #Uloga administrator:
+#- autentikacija
+#- kreiranje korisnika (studenata i profesora)
+#- opcija za editiranje i brisanje korisnika
+#- pregled svih korisnika sortiranih po kriteriju student/profesor
+-->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>moodle clone</title>
+    </head>
+    <body style="font-family:Georgia, 'Times New Roman', Times, serif; font-size: 20 px;">
+
+    {% block admin %}
+    <div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <menu type="toolbar" style="float:right;"> 
+            <button class="btn btn-primary"><a href="/logout" style="padding: 10px;text-decoration: none;">LOGOUT</a></button>
+        </menu>
+        <h3>Admin</h3>
+        <div class="user_info" >
+            <p>Ime i prezime: <span style="color:firebrick">{{ admin_data.first_name }}  {{ admin_data.last_name }} </span></p>
+            <p>Email: <span style="color:firebrick">{{ admin_data.email }}</span></p>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block users %}
+    <div style="border-bottom: 1px;border-style:solid;border-color:firebrick;padding: 10px;margin-top:10px;margin-bottom:10px">
+        <button class="btn btn-primary" style="float:right;"><a  href="/new_user" style="padding: 10px;text-decoration: none;">DODAJ KORISNIKA</a></button>
+        <h3>Korisnici</h3>
+        <div style="float:center;">
+            <span style="margin: 10px;">
+                <form action="" class = "sort__form" method="GET">
+                    <select class= "filter__select" name="select_filtering">
+                        <option disabled selected> Filtriraj po ulozi</option>
+                        <option value="administrator">Administrator</option>
+                        <option value="profesor">Profesor</option>
+                        <option value="student">Student</option>
+                    </select>
+                    <input type="submit" value="FILTRIRAJ">
+                </form>
+            </span>
+        </div>
+        <table>
+        <tr style="padding: 5px;">
+            <th style="padding: 5px;width:max-content">Ime</th>
+            <th style="padding: 5px;width:max-content">Prezime</th>
+            <th style="padding: 5px;width:max-content">Korisničko ime</th>
+            <th style="padding: 5px;width:max-content">Email</th>
+            <th style="padding: 5px;width:max-content">Uloga</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for user in user_data %}
+        <tr>
+            <td style="padding: 5px;">{{ user.first_name }} </td>
+            <td style="padding: 5px;">{{ user.last_name }} </td>
+            <td style="padding: 5px;">{{ user.username }} </td>
+            <td style="padding: 5px;">{{ user.email }} </td>
+            <td style="padding: 5px;">{{ user.role }} </td>
+            <td style="padding: 5px;"><a href="/update_user/{{ user.id }}" title="UREDI KORISNIKA" style="text-decoration: none;">&#128221;</a></td>
+            <td style="padding: 5px;"><a href="/delete_user/{{ user.id }}" title="IZBRIŠI KORISNIKA" style="text-decoration: none;">&#10060;</a></td>
+        </tr>
+        {% endfor %}
+        </table>
+
+        <div style="float:center;padding: 10px;">
+            {% if user_data.has_previous %}
+            <a href="?page=1" style="text-decoration: none;">&#9198;</a>
+            <a href="?page={{ user_data.previous_page_number }}" style="text-decoration: none;">&#9194;</a>
+            {% endif %}
+            Stranica {{ user_data.number }} of {{ user_data.paginator.num_pages }}
+            {% if user_data.has_next %}
+            <a href="?page={{ user_data.next_page_number }}" style="text-decoration: none;">&#9193;</a>
+            <a href="?page={{ user_data.paginator.num_pages }}" style="text-decoration: none;">&#9197;</a>
+            {% endif %}
+            </div>
+    </div>
+    {% endblock %}
+
+</body>
+</html>
